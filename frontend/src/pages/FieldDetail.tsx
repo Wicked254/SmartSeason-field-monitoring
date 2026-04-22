@@ -95,7 +95,7 @@ const FieldDetail: React.FC = () => {
 
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
-          <div className="flex justify-between items-start">
+          <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-start">
             <div>
               <h3 className="text-lg leading-6 font-medium text-gray-900">
                 {field.name}
@@ -177,11 +177,11 @@ const FieldDetail: React.FC = () => {
                   required
                 />
               </div>
-              <div>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium disabled:opacity-50"
+                  className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium disabled:opacity-50"
                 >
                   {isSubmitting ? 'Submitting...' : 'Submit Update'}
                 </button>

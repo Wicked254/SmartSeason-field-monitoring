@@ -138,7 +138,7 @@ const UserManagement: React.FC = () => {
         </div>
 
         <div className="bg-white shadow rounded-lg p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
             <h3 className="text-lg font-semibold text-gray-900">Users</h3>
             <button
               onClick={loadUsers}
@@ -147,8 +147,8 @@ const UserManagement: React.FC = () => {
               Refresh
             </button>
           </div>
-          <div className="overflow-hidden border border-gray-200 rounded-md">
-            <table className="min-w-full divide-y divide-gray-200">
+          <div className="overflow-x-auto border border-gray-200 rounded-md">
+            <table className="min-w-full divide-y divide-gray-200 text-sm">
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>

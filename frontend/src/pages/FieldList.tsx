@@ -57,7 +57,7 @@ const FieldList: React.FC = () => {
 
   return (
     <div className="px-4 py-6">
-      <div className="mb-6 flex justify-between items-center">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
         <div>
           <h2 className="text-2xl font-bold text-gray-900">Fields</h2>
           <p className="text-gray-600">
@@ -80,7 +80,7 @@ const FieldList: React.FC = () => {
             <li key={field.id}>
               <Link to={`/fields/${field.id}`} className="block hover:bg-gray-50">
                 <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-indigo-600 truncate">
                         {field.name}
@@ -92,7 +92,7 @@ const FieldList: React.FC = () => {
                         Assigned to: {field.assigned_agent?.username || 'Unassigned'}
                       </p>
                     </div>
-                    <div className="flex items-center space-x-3">
+                    <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:space-x-3 sm:gap-0">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(field.status)}`}>
                         {field.status_label}
                       </span>

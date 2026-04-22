@@ -132,18 +132,18 @@ const FieldCreate: React.FC = () => {
           </select>
         </div>
 
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row">
           <button
             type="submit"
             disabled={isLoading}
-            className="bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white px-4 py-2 rounded-md text-sm font-medium"
+            className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white px-4 py-2 rounded-md text-sm font-medium"
           >
             {isLoading ? 'Creating...' : 'Create'}
           </button>
           <button
             type="button"
             onClick={() => navigate('/fields')}
-            className="bg-gray-200 hover:bg-gray-300 text-gray-900 px-4 py-2 rounded-md text-sm font-medium"
+            className="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 text-gray-900 px-4 py-2 rounded-md text-sm font-medium"
           >
             Cancel
           </button>

@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="px-4 py-6">
       <div className="mb-8">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">
               {dashboardData.is_admin ? 'Admin Dashboard' : 'Agent Dashboard'}
@@ -69,7 +69,7 @@ const Dashboard: React.FC = () => {
           </div>
           
           {dashboardData.is_admin && (
-            <div className="flex space-x-4">
+            <div className="flex flex-col gap-2 sm:flex-row sm:space-x-4 sm:gap-0">
               <Link
                 to="/fields/new"
                 className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
@@ -169,7 +169,7 @@ const Dashboard: React.FC = () => {
             <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">Recent Fields</h3>
             <div className="space-y-4">
               {dashboardData.recent_fields.map((field) => (
-                <div key={field.id} className="flex items-center justify-between">
+                <div key={field.id} className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <p className="text-sm font-medium text-gray-900">{field.name}</p>
                     <p className="text-sm text-gray-500">{field.crop_type} - {field.current_stage}</p>
