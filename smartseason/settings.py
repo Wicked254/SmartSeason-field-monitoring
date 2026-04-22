@@ -1,10 +1,14 @@
+import os
 from pathlib import Path
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-change-me-in-production'
-DEBUG = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testserver']
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-change-me-in-production')
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
+
+allowed_hosts_env = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,testserver')
+ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_env.split(',') if host.strip()]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -49,12 +53,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'smartseason.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=not DEBUG,
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {

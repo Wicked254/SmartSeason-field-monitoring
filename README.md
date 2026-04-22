@@ -5,7 +5,7 @@ A lightweight field monitoring system for tracking crop progress across multiple
 ## Stack
 - Backend: Django 5 + Django REST Framework
 - Frontend: React 18 + TypeScript (Vite)
-- Database: SQLite (default)
+- Database: SQLite (local default), PostgreSQL (recommended for deployment)
 - Auth: Django session authentication with role-based access
 
 ## Roles
@@ -62,6 +62,27 @@ npm run dev
 Open:
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8000/api/
+
+## Deployment Database (PostgreSQL)
+For live deployment, configure these environment variables on your host:
+
+```bash
+DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DBNAME
+DEBUG=False
+SECRET_KEY=<strong-random-secret>
+ALLOWED_HOSTS=<your-backend-domain>
+```
+
+Then run migrations and seed demo data on the deployed backend:
+
+```bash
+python manage.py migrate
+python manage.py seed_demo
+```
+
+Notes:
+- If `DATABASE_URL` is set, the app uses PostgreSQL.
+- If `DATABASE_URL` is not set, it falls back to local SQLite (`db.sqlite3`).
 
 ## Demo Credentials
 - Admin: `coordinator` / `Admin123!`
