@@ -41,7 +41,7 @@ This logic balances progress and recency to highlight fields needing attention.
 
 ## Setup
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/Wicked254/SmartSeason-field-monitoring.git
 cd SmartSeason-field-monitoring
 python3 -m venv .venv
 . .venv/bin/activate
