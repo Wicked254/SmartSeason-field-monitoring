@@ -103,6 +103,10 @@ After deploy:
 - Frontend live URL: `https://<your-frontend>.onrender.com`
 - Backend/API URL: `https://<your-backend>.onrender.com/api/`
 
+Render free tier note:
+- Free instances spin down after inactivity.
+- The first request after idle time can take up to ~50 seconds (cold start).
+
 ## Demo Credentials
 - Admin: `coordinator` / `Admin123!`
 - Agent: `agent1` / `Agent123!`
