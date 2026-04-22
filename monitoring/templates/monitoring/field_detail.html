@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <h2>{{ field.name }}</h2>
+    <p><strong>Crop:</strong> {{ field.crop_type }}</p>
+    <p><strong>Planting Date:</strong> {{ field.planting_date }}</p>
+    <p><strong>Current Stage:</strong> {{ field.get_current_stage_display }}</p>
+    <p><strong>Status:</strong> <span class="{{ field.status_css_class }}">{{ field.status_label }}</span></p>
+    <p><strong>Assigned Agent:</strong> {{ field.assigned_agent.username|default:'Unassigned' }}</p>
+  </div>
+
+  {% if not is_admin or field.assigned_agent_id == user.id %}
+    <div class="card" style="max-width: 720px;">
+      <h3>Submit Field Update</h3>
+      <form method="post">
+        {% csrf_token %}
+        {% for item in update_form %}
+          <div class="field">
+            <label for="{{ item.id_for_label }}">{{ item.label }}</label>
+            {{ item }}
+            {% for err in item.errors %}<div class="status-at-risk">{{ err }}</div>{% endfor %}
+          </div>
+        {% endfor %}
+        <button type="submit" class="btn">Submit Update</button>
+      </form>
+    </div>
+  {% endif %}
+
+  <div class="card">
+    <h3>Update History</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>When</th>
+          <th>Agent</th>
+          <th>Stage</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for update in updates %}
+          <tr>
+            <td>{{ update.created_at|date:'Y-m-d H:i' }}</td>
+            <td>{{ update.agent.username }}</td>
+            <td>{{ update.get_stage_display }}</td>
+            <td>{{ update.note }}</td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="4">No updates yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

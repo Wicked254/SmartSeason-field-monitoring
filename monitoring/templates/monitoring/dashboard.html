@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <h2>{% if is_admin %}Admin{% else %}Field Agent{% endif %} Dashboard</h2>
+    <p class="muted">Welcome, {{ user.username }}.</p>
+  </div>
+
+  <div class="grid">
+    <div class="stat">
+      <div class="muted">Total fields</div>
+      <strong>{{ total_fields }}</strong>
+    </div>
+    <div class="stat">
+      <div class="muted">Active</div>
+      <strong class="status-active">{{ status_counts.ACTIVE }}</strong>
+    </div>
+    <div class="stat">
+      <div class="muted">At risk</div>
+      <strong class="status-at-risk">{{ status_counts.AT_RISK }}</strong>
+    </div>
+    <div class="stat">
+      <div class="muted">Completed</div>
+      <strong class="status-completed">{{ status_counts.COMPLETED }}</strong>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Field Snapshot</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Crop</th>
+          <th>Stage</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for field in fields %}
+          <tr>
+            <td><a href="{% url 'field_detail' field.pk %}">{{ field.name }}</a></td>
+            <td>{{ field.crop_type }}</td>
+            <td>{{ field.get_current_stage_display }}</td>
+            <td>
+              <span class="{{ field.status_css_class }}">{{ field.status_label }}</span>
+            </td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="4">No fields yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Recent Updates</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Agent</th>
+          <th>Stage</th>
+          <th>When</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for update in recent_updates %}
+          <tr>
+            <td>{{ update.field.name }}</td>
+            <td>{{ update.agent.username }}</td>
+            <td>{{ update.get_stage_display }}</td>
+            <td>{{ update.created_at|date:'Y-m-d H:i' }}</td>
+          </tr>
+        {% empty %}
+          <tr><td colspan="4">No updates yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

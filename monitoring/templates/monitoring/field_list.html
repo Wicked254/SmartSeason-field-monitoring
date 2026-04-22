@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:.8rem;">
+      <h2>Fields</h2>
+      {% if is_admin %}
+        <a href="{% url 'field_create' %}" class="btn">+ Add Field</a>
+      {% endif %}
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Crop</th>
+          <th>Planting Date</th>
+          <th>Stage</th>
+          <th>Status</th>
+          <th>Assigned Agent</th>
+          {% if is_admin %}<th>Actions</th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for field in fields %}
+          <tr>
+            <td><a href="{% url 'field_detail' field.pk %}">{{ field.name }}</a></td>
+            <td>{{ field.crop_type }}</td>
+            <td>{{ field.planting_date }}</td>
+            <td>{{ field.get_current_stage_display }}</td>
+            <td>
+              <span class="{{ field.status_css_class }}">{{ field.status_label }}</span>
+            </td>
+            <td>{{ field.assigned_agent.username|default:'Unassigned' }}</td>
+            {% if is_admin %}
+              <td><a href="{% url 'field_edit' field.pk %}">Edit</a></td>
+            {% endif %}
+          </tr>
+        {% empty %}
+          <tr><td colspan="7">No fields found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
