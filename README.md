@@ -84,6 +84,25 @@ Notes:
 - If `DATABASE_URL` is set, the app uses PostgreSQL.
 - If `DATABASE_URL` is not set, it falls back to local SQLite (`db.sqlite3`).
 
+## Render Deployment (Live Link)
+This repo includes a Render Blueprint file: `render.yaml`.
+
+1. Open this link:
+   `https://dashboard.render.com/blueprint/new?repo=https://github.com/Wicked254/SmartSeason-field-monitoring`
+2. Render will create:
+   - `smartseason-backend` (Django web service)
+   - `smartseason-frontend` (React static site)
+   - `smartseason-postgres` (PostgreSQL database)
+3. In the Render Blueprint form, set these values:
+   - `CORS_ALLOWED_ORIGINS` = `https://<your-frontend>.onrender.com`
+   - `CSRF_TRUSTED_ORIGINS` = `https://<your-frontend>.onrender.com`
+   - `VITE_API_BASE_URL` = `https://<your-backend>.onrender.com/api`
+4. Click **Apply** and wait for deployment to complete.
+
+After deploy:
+- Frontend live URL: `https://<your-frontend>.onrender.com`
+- Backend/API URL: `https://<your-backend>.onrender.com/api/`
+
 ## Demo Credentials
 - Admin: `coordinator` / `Admin123!`
 - Agent: `agent1` / `Agent123!`
